@@ -1,6 +1,15 @@
+# REQUIRED PACKAGES
+# 
+# pip3 install dash
+# pip3 install dash-html-components
+# pip3 install dash-core-components
+
+
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+# import dash_core_components as dcc
+from dash import dcc
+# import dash_html_components as html
+from dash import html
 import pandas as pd
 import plotly.graph_objs as go
 from dash.dependencies import Input, Output
@@ -14,7 +23,7 @@ server = app.server
 
 scaler=MinMaxScaler(feature_range=(0,1))
 
-df_nse = pd.read_csv("./NSE-Tata-Global-Beverages-Limited.csv")
+df_nse = pd.read_csv("./data/NSE-Tata-Global-Beverages-Limited.csv")
 
 df_nse["Date"]=pd.to_datetime(df_nse.Date,format="%Y-%m-%d")
 df_nse.index=df_nse['Date']
@@ -48,7 +57,7 @@ x_train,y_train=np.array(x_train),np.array(y_train)
 
 x_train=np.reshape(x_train,(x_train.shape[0],x_train.shape[1],1))
 
-model=load_model("saved_model.h5")
+model=load_model("./saved_model.h5")
 
 inputs=new_data[len(new_data)-len(valid)-60:].values
 inputs=inputs.reshape(-1,1)
@@ -69,7 +78,7 @@ valid['Predictions']=closing_price
 
 
 
-df= pd.read_csv("./stock_data.csv")
+df= pd.read_csv("./data/stock_data.csv")
 
 app.layout = html.Div([
    
